@@ -15,18 +15,24 @@
 <script src="https://unpkg.com/react-dom@16.8.4/umd/react-dom.development.js"></script>
 ```
 
+##### How to set up Parcel
+
+1. npm install -D parcel-bundler
+
+2. write script in package.json '"dev": "parcel src/index.html"'
+
 ##### React.createElement arguments
 
 ```javascript
 const App = () => {
   return React.createElement(
-    'div', // 1st - HTML tags
+    "div", // 1st - HTML tags
     {}, // 2nd - { class: "this-is-a-class" }: attribute that you wanna give to the component
     React.createElement(
       // 3rd - children that you wanna pass into the element
-      'h1',
+      "h1",
       {},
-      'Adopt Me!'
+      "Adopt Me!"
     )
   );
 };
@@ -59,10 +65,10 @@ const App = () => {  // Parent
 
 ```javascript
 const Pet = ({ name, animal, breed }) => {
-  return React.createElement('div', {}, [
-    React.createElement('h1', {}, name),
-    React.createElement('h2', {}, animal),
-    React.createElement('h2', {}, breed)
+  return React.createElement("div", {}, [
+    React.createElement("h1", {}, name),
+    React.createElement("h2", {}, animal),
+    React.createElement("h2", {}, breed)
   ]);
 };
 ```
