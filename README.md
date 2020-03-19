@@ -73,7 +73,29 @@ const Pet = ({ name, animal, breed }) => {
 };
 ```
 
+##### Passing props in JSX (with destructuring)
+
 ```javascript
+// app.js
+return (
+  <div>
+    <h1>Adopt Me!</h1>
+    <Pet name="Hunter" animal="dog" breed="husky" />
+    <Pet name="Burno" animal="cat" breed="mixed" />
+    <Pet name="Naggy" animal="bird" breed="cockatoo" />
+  </div>
+);
+
+// pet.js
+export default function Pet({ name, animal, breed }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h2>{animal}</h2>
+      <h2>{breed}</h2>
+    </div>
+  );
+}
 ```
 
 ```javascript
