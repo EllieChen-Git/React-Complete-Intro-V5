@@ -146,6 +146,7 @@ export default function Pet({ name, animal, breed }) {
 
 - **useState**: https://reactjs.org/docs/hooks-reference.html#usestate
   const [state, setState] = useState(initialState);
+- Hooks rely on this strict ordering: Don't use hooks inside any loops, if/else statement
 
 ```javascript
 import React, { useState } from "react";
