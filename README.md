@@ -8,6 +8,8 @@
 
 ---
 
+## Setup
+
 ##### You can use React with CDN in your html file with script tag:
 
 ```html
@@ -20,6 +22,46 @@
 1. npm install -D parcel-bundler
 
 2. write script in package.json '"dev": "parcel src/index.html"'
+
+##### .eslintrc.json
+
+```javascript
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "rules": {
+    "react/prop-types": 0
+  },
+  "plugins": ["react", "import", "jsx-a11y"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
+```
+
+---
+
+## Props
 
 ##### React.createElement arguments
 
@@ -98,7 +140,34 @@ export default function Pet({ name, animal, breed }) {
 }
 ```
 
+---
+
+## React Hooks
+
+- **useState**: https://reactjs.org/docs/hooks-reference.html#usestate
+  const [state, setState] = useState(initialState);
+
 ```javascript
+import React, { useState } from "react";
+
+const SearchParams = () => {
+  const [location, setLocation] = useState("Seattle, WA");
+  // location is the current state (of location)
+  // setLocation is a function that update a piece of the state
+  // "Seattle, WA" is the initial state
+  // useState creates the React Hook
+
+  return (
+    // ...
+    <input
+      id="location"
+      value={location}
+      placeholder="Please enter location"
+      onChange={event => setLocation(event.target.value)}
+    />
+    // ...
+  );
+};
 ```
 
 ```javascript
