@@ -1,4 +1,4 @@
-# React Refresher - COMPLETE INTRO TO REACT V5 by Brian Holt
+# React Refresher + React Hooks - COMPLETE INTRO TO REACT V5 by Brian Holt
 
 ---
 
@@ -206,6 +206,100 @@ const SearchParams = () => {
   }, [animal, setBreed, setBreeds]); // dependencies, if any of these changed, then re-render
 
 //...
+```
+
+---
+
+## One-way Data Flow
+
+src\app.js
+
+```javascript
+import SearchParams from "./SearchParams";
+
+const App = () => {
+  return (
+    <div>
+      <h1>Adopt Me!</h1>
+      <SearchParams />
+    </div>
+  );
+};
+```
+
+src\SearchParams.js
+
+```javascript
+import Results from "./Results";
+
+<Results pets={pets} />;
+```
+
+src\Results.js
+
+```javascript
+import Pet from "./Pet";
+
+const Results = ({ pets }) => {
+  return (
+    <div className="search">
+      {pets.length === 0 ? (
+        <h1>No Pets Found</h1>
+      ) : (
+        pets.map(pet => (
+          <Pet
+            animal={pet.type}
+            key={pet.id}
+            name={pet.name}
+            breed={pet.breeds.primary}
+            media={pet.photos}
+            location={`${pet.contact.address.city}, ${pet.contact.address.state}`}
+            id={pet.id}
+          />
+        ))
+      )}
+    </div>
+  );
+};
+```
+
+src\Pet.js
+
+```javascript
+export default function Pet({ name, animal, breed, location }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h2>Animal: {animal}</h2>
+      <h2>Breed: {breed}</h2>
+      <h2>Location: {location}</h2>
+    </div>
+  );
+}
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
+```
+
+```javascript
 ```
 
 ```javascript
