@@ -208,6 +208,8 @@ If you enter 'http://localhost:1234/details/2' in browser, you will see:
 
 ## React Hooks
 
+- Can only be used with functional components (i.e. You cannot use it with class components)
+
 - **useState**: https://reactjs.org/docs/hooks-reference.html#usestate
   const [state, setState] = useState(initialState);
 - !!!Hooks rely on this strict ordering!!!: Don't use hooks inside any loops, if/else statement
@@ -366,6 +368,12 @@ src\app.js
 // 'React-Router' will render both <AnotherRoute> & <Details>
 // while 'Reach-Router' will only render <AnotherRoute> as it's more specific
 ```
+
+---
+
+## Class Components
+
+- componentDidMount is a function that's called after the first rendering is completed. This pretty similar to a useEffect call that only calls the first time. This is typically where you want to do data fetching.
 
 ```javascript
 ```
