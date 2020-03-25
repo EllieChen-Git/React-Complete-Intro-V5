@@ -1,6 +1,11 @@
-# React Refresher + React Hooks - COMPLETE INTRO TO REACT V5 by Brian Holt
+# React-Refresher & React-Hooks
+
+- React pratice following Brian Holt's course 'COMPLETE INTRO TO REACT V5'
 
 ---
+
+- Course at Frontend Master: https://frontendmasters.com/courses/complete-react-v5/
+  (If you are a student, you can use [GitHub student pack]to get a free 6-month subscription to Frontend master. The GitHub student pack provides lots of amazing resources! Feel free to check it out [here](https://education.github.com/pack))
 
 - Written Material: https://btholt.github.io/complete-intro-to-react-v5/
 
@@ -11,6 +16,8 @@
 ## Setup
 
 ##### You can use React with CDN in your html file with script tag:
+
+(Of course you can also install React & React-Dom as npm packages)
 
 ```html
 <script src="https://unpkg.com/react@16.8.4/umd/react.development.js"></script>
@@ -23,7 +30,7 @@
 
 2. write script in package.json '"dev": "parcel src/index.html"'
 
-##### .eslintrc.json
+##### How to set up Eslint (.eslintrc.json)
 
 ```javascript
 {
