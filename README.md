@@ -86,6 +86,39 @@ import { Router } from "@reach/router";
 }
 ```
 
+##### How to enable experimental syntax 'classProperties' (Configure Babel for Parcel)
+
+1. Install npm packages
+
+```
+npm install -D babel-eslint @babel/core @babel/preset-env @babel/plugin-proposal-class-properties @babel/preset-react
+```
+
+2. Configure .babelrc
+
+```javascript
+{
+  "presets": ["@babel/preset-react", "@babel/preset-env"],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+}
+```
+
+3. Configure .eslintrc.json
+
+4) After that you can use 'classProperties' syntax in src\Details.js
+
+```javascript
+class Details extends React.Component {
+  //   constructor(props) {
+  //     super(props);
+  //     this.state = {
+  //       loading: true
+  //     };
+  //   }
+
+  state = { loading: true };
+```
+
 ---
 
 ## Props
