@@ -13,6 +13,18 @@
 
 ---
 
+## Dependancies
+
+New npm packages I learned to use in this repo:
+
+- Parcel: https://www.npmjs.com/package/parcel
+
+- Reach Router: https://www.npmjs.com/package/@reach/router
+
+Docs: https://reach.tech/router
+
+---
+
 ## Setup
 
 ##### You can use React with CDN in your html file with script tag:
@@ -29,6 +41,14 @@
 1. npm install -D parcel-bundler
 
 2. write script in package.json '"dev": "parcel src/index.html"'
+
+3. Parcel will install npm packages for you.
+
+For example, type in the following line in your .js file. If you check your terminal, you will see that Parcel is installing this packege for you.
+
+```javascript
+import { Router } from "@reach/router";
+```
 
 ##### How to set up Eslint (.eslintrc.json)
 
@@ -144,6 +164,43 @@ export default function Pet({ name, animal, breed }) {
       <h2>{breed}</h2>
     </div>
   );
+}
+```
+
+##### A way to see props that were passed into your router in DOM
+
+src\Details.js
+
+```javascript
+const Details = props => {
+  return (
+    <pre>
+      <code>{JSON.stringify(props, null, 4)}</code>
+    </pre>
+  );
+};
+```
+
+If you enter 'http://localhost:1234/details/2' in browser, you will see:
+
+```
+{
+    "path": "/details/:id",
+    "id": "2",
+    "uri": "/details/2",
+    "location": {
+        "pathname": "/details/2",
+        "search": "",
+        "hash": "",
+        "href": "http://localhost:1234/details/2",
+        "origin": "http://localhost:1234",
+        "protocol": "http:",
+        "host": "localhost:1234",
+        "hostname": "localhost",
+        "port": "1234",
+        "state": null,
+        "key": "initial"
+    }
 }
 ```
 
@@ -285,13 +342,29 @@ export default function Pet({ name, animal, breed, location }) {
 }
 ```
 
-```javascript
-```
+---
+
+## Reach Router
+
+Difference bwtween 'React-Router' and 'Reach-Router':
+
+1. 'React-Router' will render everything that matches, while 'Reach-Router' will only render the thing that 'matches the most'.
+
+2. In 'Reach-Router', order doesn't really matter, as 'Reach-Router' is rendered by a 'scoring system.
+
+3. In 'Reach-Router', you can have multiple routes on the same page.
+
+src\app.js
 
 ```javascript
-```
+<Router>
+  <SearchParams path="/" />
+  <AnotherRoute path="/details/1" />
+  <Details path="/details/id" />
+</Router>
 
-```javascript
+// 'React-Router' will render both <AnotherRoute> & <Details>
+// while 'Reach-Router' will only render <AnotherRoute> as it's more specific
 ```
 
 ```javascript
