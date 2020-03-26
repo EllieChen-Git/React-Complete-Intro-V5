@@ -412,9 +412,13 @@ src\app.js
 
 ## Error Boundaries & Redirect
 
+- Usage: componentDidCatch, static getDerivedStateFromError, componentDidUpdate (how you react to state and prop changes with class components)
+
 - React Hooks can't deal with error boundaries (one of the reaons that we still need class components)
 
 - Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed: https://reactjs.org/docs/error-boundaries.html
+
+- Why we need to wrap Details.js in ErrorBoundary.js: A component can only catch errors in its children. It cannot catch its own errors.
 
 src\ErrorBoundary.js
 
