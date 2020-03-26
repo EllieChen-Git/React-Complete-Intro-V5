@@ -1,18 +1,21 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
+import { navigate } from "@reach/router";
+import Modal from "./Modal";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 
 class Details extends React.Component {
   // 'classProperties' syntax
-  state = { loading: true };
+  state = { loading: true, showModal: false };
 
   componentDidMount() {
     // throw new Error(" errors lol");
 
     pet.animal(this.props.id).then(({ animal }) => {
       this.setState({
+        url: animal.url,
         name: animal.name,
         animal: animal.type,
         location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
@@ -24,12 +27,23 @@ class Details extends React.Component {
     }, console.error);
   }
 
+  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+  adopt = () => navigate(this.state.url);
+
   render() {
     if (this.state.loading) {
       return <h1>loading...</h1>;
     }
 
-    const { animal, name, location, description, media, breed } = this.state;
+    const {
+      animal,
+      name,
+      location,
+      description,
+      media,
+      breed,
+      showModal
+    } = this.state;
 
     return (
       <div className="details">
@@ -46,11 +60,27 @@ class Details extends React.Component {
 
             {/* Same as the above but used destructuring */}
             {([theme]) => (
-              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+              <button
+                onClick={this.toggleModal}
+                style={{ backgroundColor: theme }}
+              >
+                Adopt {name}
+              </button>
             )}
           </ThemeContext.Consumer>
 
           <p>{description}</p>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h1>Would you like to adopt {name}?</h1>
+                <div className="buttons">
+                  <button onClick={this.adopt}>Yes</button>
+                  <button onClick={this.toggleModal}>No, I am a monster</button>
+                </div>
+              </div>
+            </Modal>
+          ) : null}
         </div>
       </div>
     );
