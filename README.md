@@ -408,10 +408,69 @@ src\app.js
 
 - componentDidMount is a function that's called after the first rendering is completed. This pretty similar to a useEffect call that only calls the first time. This is typically where you want to do data fetching.
 
-```javascript
-```
+---
+
+## Error Boundaries & Redirect
+
+- React Hooks can't deal with error boundaries (one of the reaons that we still need class components)
+
+- Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed: https://reactjs.org/docs/error-boundaries.html
+
+src\ErrorBoundary.js
 
 ```javascript
+class ErrorBoundary extends Component {
+  state = { hasError: false, redirect: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("ErrorBoundary caught an error", error, info);
+  }
+
+  componentDidUpdate() {
+    // similar to useEffect: will run every time props or state changes
+    if (this.state.hasError) {
+      setTimeout(() => this.setState({ redirect: true }), 5000);
+    }
+  }
+
+  render() {
+    // Order is important here!
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+
+    if (this.state.hasError) {
+      return (
+        <h1>
+          There was an error with this listing. <Link to="/">Click here</Link>{" "}
+          to go back to the home page or wait for 5 seconds.
+        </h1>
+      );
+    }
+    return this.props.children;
+  }
+}
+```
+
+- src\Details.js
+
+```javascript
+import ErrorBoundary from "./ErrorBoundary";
+
+class Details extends React.Component {
+  // Create a higher order component
+export default function DetailsWithErrorBoundary(props) {
+  // ...
+  return (
+    <ErrorBoundary>
+      <Details {...props} /> {/* Use spread operator to spread props */}
+    </ErrorBoundary>
+  );
+}
 ```
 
 ```javascript
