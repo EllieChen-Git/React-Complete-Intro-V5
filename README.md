@@ -1,27 +1,16 @@
-# React-Refresher & React-Hooks
+# React Course: Complete Intro To React V5
 
-- React pratice following Brian Holt's course 'COMPLETE INTRO TO REACT V5'
+**React practice following [Brian Holt's course 'COMPLETE INTRO TO REACT V5'](https://frontendmasters.com/courses/complete-react-v5/)** (If you are a student, you can use [GitHub student pack](https://education.github.com/pack) to get a free 6-month subscription to Frontend master. The GitHub student pack provides lots of amazing resources!)
 
----
+![#](./docs/project1.JPG)
 
-- Course at Frontend Master: https://frontendmasters.com/courses/complete-react-v5/
-  (If you are a student, you can use [GitHub student pack]to get a free 6-month subscription to Frontend master. The GitHub student pack provides lots of amazing resources! Feel free to check it out [here](https://education.github.com/pack))
+- **Topics covered**: basic React (functional & class components, props, one-way data binding, async), setup (ESLint, Prettier, Parcel, Babel for Parcel), React Hooks (useState, useEffect), API, Reach Router, Error Boundaries (& Redirect), React Context (to replace Redux), React Portals & React Portals (with modals)
 
-- Written Material: https://btholt.github.io/complete-intro-to-react-v5/
+![#](./docs/project2.JPG)
 
-- GitHub: https://github.com/btholt/complete-intro-to-react-v5
+- **Written Material**: https://btholt.github.io/complete-intro-to-react-v5/
 
----
-
-## Dependancies
-
-New npm packages I learned to use in this repo:
-
-- Parcel: https://www.npmjs.com/package/parcel
-
-- Reach Router: https://www.npmjs.com/package/@reach/router
-
-Docs: https://reach.tech/router
+- **GitHub**: https://github.com/btholt/complete-intro-to-react-v5
 
 ---
 
@@ -38,19 +27,21 @@ Docs: https://reach.tech/router
 
 ##### How to set up Parcel
 
+- Parcel: https://www.npmjs.com/package/parcel
+
 1. npm install -D parcel-bundler
 
 2. write script in package.json '"dev": "parcel src/index.html"'
 
 3. Parcel will install npm packages for you.
 
-For example, type in the following line in your .js file. If you check your terminal, you will see that Parcel is installing this packege for you.
+For example, type in the following line in your .js file. If you check your terminal, you will see that Parcel is installing this package for you.
 
 ```javascript
 import { Router } from "@reach/router";
 ```
 
-##### How to set up Eslint (.eslintrc.json)
+##### How to set up ESLint (.eslintrc.json)
 
 ```javascript
 {
@@ -282,7 +273,7 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 
 const SearchParams = () => {
-  // !!!Order of 'useState' is crutical!!!
+  // !!!Order of 'useState' is critical!!!
 
   // [[[[Initial render]]]]
   const [location, setLocation] = useState("Seattle, WA");
@@ -293,9 +284,9 @@ const SearchParams = () => {
   const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
   // const [breed, setBreed] = useState("");
 
-  // [[[[After the intial render, we call the side effects here]]]]
+  // [[[[After the initial render, we call the side effects here]]]]
   useEffect(() => {
-    setBreeds([]); // When we change animal, the breeds arr will be set as an empty arr
+    setBreeds([]); // When we change animal, the breeds array will be set as an empty array
     setBreed(""); // and the breed we selected will be changed to empty string
 
     pet.breeds(animal).then(({ breeds: apiBreeds }) => {
@@ -381,7 +372,10 @@ export default function Pet({ name, animal, breed, location }) {
 
 ## Reach Router
 
-Difference bwtween 'React-Router' and 'Reach-Router':
+- Reach Router: https://www.npmjs.com/package/@reach/router
+- Reach Router Docs: https://reach.tech/router
+
+**Difference between 'React-Router' and 'Reach-Router':**
 
 1. 'React-Router' will render everything that matches, while 'Reach-Router' will only render the thing that 'matches the most'.
 
@@ -414,7 +408,7 @@ src\app.js
 
 - Usage: componentDidCatch, static getDerivedStateFromError, componentDidUpdate (how you react to state and prop changes with class components)
 
-- React Hooks can't deal with error boundaries (one of the reaons that we still need class components)
+- React Hooks can't deal with error boundaries (one of the reasons that we still need class components)
 
 - Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed: https://reactjs.org/docs/error-boundaries.html
 
@@ -539,6 +533,146 @@ const SearchParams = () => {
 };
 ```
 
+**React Context: React Hooks**
+
+- src\Details.js
+
+```javascript
+import ThemeContext from "./ThemeContext";
+
+return (
+  <ThemeContext.Consumer>
+    {/* {themeHook => (
+              <button style={{ backgroundColor: themeHook[0] }}>
+                Adopt {name}
+              </button>
+            )} */}
+
+    {/* Same as the above but used destructuring */}
+    {([theme]) => (
+      <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+    )}
+  </ThemeContext.Consumer>
+);
+```
+
+---
+
+## React Portals & Refs
+
+- Portal: a separate mount point (the actual DOM node which your app is put into) for your React app.
+
+- The most common use case for React Portal is modals. You'll have your normal app with its normal mount point and then you can also put different content into a separate mount point (like a modal or a contextual nav bar) directly from a component.
+
+- The nice thing about portals is that despite the actual elements being in different DOM trees, these are in the same React trees, so you can do event bubbling up from the modal.
+
+- src\index.html (go into index.html and add a separate mount point)
+  This where the modal will actually be mounted whenever we render to this portal. Totally separate from our app root.
+
+```javascript
+<body>
+  <div id="modal"></div>
+  <div id="root">not rendered</div>
+  <script src="app.js"></script>
+</body>
+```
+
+- src\Modal.js
+
+1. This will mount a div and mount inside of the portal whenever the Modal is rendered and then remove itself whenever it's un-rendered.
+
+2. useEffect: if you need to clean up after you're done (we need to remove the div once the Modal is no longer being rendered) you can return a function inside of useEffect that cleans up.
+
+3. ref via the hook useRef: Refs are like instance variables for function components. (Whereas on a class you'd say this.myVar to refer to an instance variable, with function components you can use refs.) They're containers of state that live outside a function's closure state which means anytime I refer to elRef.current, it's always referring to the same element. This is different from a useState call because the variable returned from that useState call will always refer to the state of the variable when that function was called. It seems like a weird hair to split but it's important when you have async calls and effects because that variable can change and nearly always you want the useState variable, but with something like a portal it's important we always refer to the same DOM div; we don't want a lot of portals.
+
+4. createPortal: to pass the children (whatever you put inside "Modal") to the portal div.
+
+```javascript
+import React, { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+
+const Modal = ({ children }) => {
+  const elRef = useRef(null);
+  if (!elRef.current) {
+    const div = document.createElement("div");
+    elRef.current = div;
+  }
+
+  useEffect(() => {
+    const modalRoot = document.getElementById("modal");
+    modalRoot.appendChild(elRef.current);
+
+    return () => modalRoot.removeChild(elRef.current);
+  }, []);
+
+  return createPortal(<div>{children}</div>, elRef.current);
+};
+
+export default Modal;
+```
+
+- src\Details.js
+
+```javascript
+import { navigate } from "@reach/router";
+import Modal from "./Modal";
+class Details extends React.Component {
+  state = { loading: true, showModal: false };
+
+
+    pet.animal(this.props.id).then(({ animal }) => {
+      this.setState({
+        url: animal.url,
+
+      });
+    }, console.error);
+  }
+    toggleModal = () => this.setState({ showModal: !this.state.showModal });
+  adopt = () => navigate(this.state.url);
+
+      const {
+
+      showModal
+    } = this.state;
+
+    return (
+          <ThemeContext.Consumer>
+
+            {([theme]) => (
+              <button
+                onClick={this.toggleModal}
+                style={{ backgroundColor: theme }}
+              >
+                Adopt {name}
+              </button>
+            )}
+          </ThemeContext.Consumer>
+                 <p>{description}</p>
+          {showModal ? (
+            <Modal>
+              <div>
+                <h1>Would you like to adopt {name}?</h1>
+                <div className="buttons">
+                  <button onClick={this.adopt}>Yes</button>
+                  <button onClick={this.toggleModal}>No, I am a monster</button>
+                </div>
+              </div>
+            </Modal>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+}
+
+```
+
+<!-- ```javascript
+```
+
+```javascript
+```
+
 ```javascript
 ```
 
@@ -547,3 +681,9 @@ const SearchParams = () => {
 
 ```javascript
 ```
+
+```javascript
+```
+
+```javascript
+``` -->
