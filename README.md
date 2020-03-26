@@ -477,13 +477,66 @@ export default function DetailsWithErrorBoundary(props) {
 }
 ```
 
-```javascript
-```
+---
+
+## React Context (replace Redux)
+
+- Context: application-level state.
+- createContext: a function that returns an object with two React components in it: a Provider and a Consumer.
+- Provider: how you scope where a context goes. A context will only be available inside of the Provider. You only need to do this once.
+- Consumer: how you consume from the above provider. A Consumer accepts a function as a child and gives it the context which you can use. We won't be using the Consumer directly: a function called useContext will do that for us.
+- useContext is how you get the context data out of a given context
+
+**React Context: React Hooks**
+
+- src\ThemeContext.js
 
 ```javascript
+import { createContext } from "react";
+
+const ThemeContext = createContext(["blue", () => {}]);
+// We put a hook [state, stateUpdater func] in the context
+
+export default ThemeContext;
 ```
 
+- src\app.js
+
 ```javascript
+import { useState } from "react";
+import ThemeContext from "./ThemeContext";
+const App = () => {
+  const themeHook = useState("darkgreen");
+  return (
+    <ThemeContext.Provider value={themeHook}>
+      <div>
+        <header>
+          <Link to="/">Adopt Me!</Link>
+        </header>
+
+        <Router>
+          <SearchParams path="/" />
+          <Details path="/details/:id" />
+        </Router>
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+```
+
+- src\SearchParams.js
+
+```javascript
+import React, { useContext } from "react";
+import ThemeContext from "./ThemeContext";
+const SearchParams = () => {
+  const [theme] = useContext(ThemeContext);
+  // ...
+  return (
+    // ...
+    <button style={{ backgroundColor: theme }}>Submit</button>
+  );
+};
 ```
 
 ```javascript
