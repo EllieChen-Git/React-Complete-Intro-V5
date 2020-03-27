@@ -6,8 +6,6 @@
 
 - **Topics covered**: basic React (functional & class components, props, one-way data binding, async), setup (ESLint, Prettier, Parcel, Babel for Parcel), React Hooks (useState, useEffect), API, Reach Router, Error Boundaries (& Redirect), React Context (to replace Redux), React Portals & React Portals (with modals)
 
-![#](./docs/project2.JPG)
-
 - **Written Material**: https://btholt.github.io/complete-intro-to-react-v5/
 
 - **GitHub**: https://github.com/btholt/complete-intro-to-react-v5
